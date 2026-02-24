@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Resumo Pós-Aula — Gabriel — CZK English</title>
+
+  <style>
+    :root{
+      --page-bg: #f4f7fa;
+      --card-bg: #fff;
+      --accent: #2f86e6;
+      --accent-dark: #1f6fd1;
+      --green: #36b37e;
+      --muted: #6b7280;
+      --border: #e6eef8;
+      --box-radius: 12px;
+      --card-width: 720px;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      padding:0;
+      background:var(--page-bg);
+      font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:48px 20px;
+    }
+
+    .card{
+      width:100%;
+      max-width:var(--card-width);
+      background:var(--card-bg);
+      border-radius:18px;
+      padding:28px;
+      box-shadow:0 6px 22px rgba(33,47,60,0.06);
+      border:1px solid rgba(15,33,64,0.03);
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:8px;
+    }
+
+    .badge{
+      background:linear-gradient(180deg,#fff,#f2fbff);
+      border:1px solid var(--border);
+      padding:8px 12px;
+      border-radius:999px;
+      color:var(--accent);
+      font-weight:700;
+      font-size:0.85rem;
+    }
+
+    h1{
+      margin:0;
+      font-size:1.3rem;
+      color:#0f1724;
+    }
+
+    .meta{
+      color:var(--muted);
+      font-size:0.92rem;
+      margin-top:6px;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:10px;
+      border:none;
+      background:var(--accent);
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 6px 14px rgba(47,134,230,0.12);
+    }
+
+    .btn.secondary{
+      background:#fff;
+      color:var(--accent);
+      border:1px solid var(--border);
+      box-shadow:none;
+    }
+
+    main{margin-top:18px;}
+    section{margin-top:18px;}
+
+    .panel{
+      background:#fbfdff;
+      border-radius:12px;
+      padding:16px;
+      border:1px solid var(--border);
+    }
+
+    .outline-card{
+      border-radius:10px;
+      border:1px solid var(--border);
+      padding:16px;
+      background:#fff;
+    }
+
+    /* Vocabulary boxes */
+    .vocab-grid{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    .vocab{
+      flex:1;
+      min-width:220px;
+      border-radius:10px;
+      padding:14px;
+      border:2px solid #dfeefe;
+      background:#fff;
+    }
+
+    .vocab.green{
+      border-color:#c9f3dc;
+      background:#f5fff6;
+    }
+
+    .vocab h3{
+      margin:0;
+      font-size:1rem;
+      color:#154360;
+    }
+
+    .vocab p{
+      margin:8px 0 0 0;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* Transcrição / gravação buttons */
+    .media-row{
+      display:flex;
+      gap:14px;
+      margin-top:12px;
+      flex-wrap:wrap;
+    }
+
+    .media-btn{
+      background:#fff;
+      border:1px solid var(--border);
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:700;
+      color:var(--accent);
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      min-width:200px;
+      justify-content:center;
+    }
+
+    /* Homework box */
+    .homework{
+      background:#f3fff6;
+      border:1px solid #d7f5df;
+      border-radius:10px;
+      padding:14px;
+      margin-top:10px;
+    }
+
+    /* ===== TALK TIME – TABELA RETANGULAR ===== */
+    .speaking{
+      margin-top:18px;
+      padding:16px;
+      border-radius:12px;
+      background:linear-gradient(180deg,#ffffff,#fbfdff);
+      border:1px solid var(--border);
+      max-width:640px;
+    }
+
+    .speaking h2{
+      margin:0 0 10px 0;
+      font-size:1.05rem;
+      color:#0f1724;
+    }
+
+    .talk-table{
+      width:100%;
+      border-collapse:collapse;
+      border-radius:10px;
+      overflow:hidden;
+      background:#fff;
+      border:1px solid #e1e9f5;
+      font-size:0.9rem;
+    }
+
+    .talk-table th,
+    .talk-table td{
+      padding:8px 10px;
+      text-align:left;
+    }
+
+    .talk-table th{
+      background:#eef4ff;
+      color:#1b3556;
+      font-weight:700;
+      border-bottom:1px solid #dde6fa;
+    }
+
+    .row-teacher{
+      background:#e7f2ff; /* azul clarinho */
+    }
+
+    .row-student{
+      background:#e8f7ef; /* verde clarinho */
+    }
+
+    .talk-label{
+      font-weight:700;
+    }
+
+    .talk-percent{
+      font-weight:700;
+      color:#0f1724;
+    }
+
+    .talk-time{
+      color:var(--muted);
+    }
+
+    footer{
+      margin-top:20px;
+      color:var(--muted);
+      font-size:0.9rem;
+      text-align:center;
+    }
+
+    /* responsive */
+    @media (max-width:720px){
+      .card{padding:18px;border-radius:14px;}
+      .vocab-grid{flex-direction:column;}
+      .media-row{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <article class="card" role="main">
+      <header>
+        <div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <span class="badge">PÓS-AULA</span>
+            <h1>Culture Shock — Brasil x Estados Unidos (American Dream)</h1>
+          </div>
+          <div class="meta" style="margin-top:8px;">
+            <strong>Professor:</strong> César &nbsp;•&nbsp;
+            <strong>Aluno:</strong> Gabriel &nbsp;•&nbsp;
+            <strong>Data:</strong> 23/02/2026
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="btn" href="#" onclick="window.print();return false;">Imprimir / Salvar PDF</a>
+        </div>
+      </header>
+
+      <main>
+        <section class="panel">
+          <p style="margin:0;font-weight:600;color:#08325a;">
+            📘 Revisão de conversa sobre rotina, acontecimentos do dia e um vídeo comparando Brasil x EUA (segurança, sociabilidade e “American Dream”).
+          </p>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Resumo da Aula</h2>
+          <div class="outline-card">
+            <p style="margin:0 0 8px 0;">
+              Começamos com <strong>conversa de aquecimento</strong> sobre o dia do Gabriel: trabalho, relatórios e rotina.
+              Também falamos rapidamente do fim de semana (passeio em um lugar de pesca) e praticamos respostas curtas
+              com <em>nothing / nothing at all</em>.
+            </p>
+            <p style="margin:0 0 8px 0;">
+              Em seguida, retomamos pontos da aula anterior sobre <strong>viver no exterior</strong> e <strong>culture shock</strong>, lembrando exemplos como
+              horários de refeição, hábitos do dia a dia, pontualidade/compromissos e <strong>contato físico</strong> (cultural vs. pessoal).
+            </p>
+            <p style="margin:0 0 8px 0;">
+              Depois assistimos a um vídeo curto com uma brasileira morando em <strong>New York</strong>. O foco foi entender as perguntas e as ideias principais:
+              ela destacou a <strong>segurança</strong> e a “liberdade” de andar pela cidade (comparando com alguns bairros no Brasil), e disse que brasileiros são
+              mais <strong>friendly</strong> e mais <strong>willing</strong> (com mais disposição) para conversar, se aproximar e <em>hang out</em> (sair, passar tempo junto).
+              Também discutimos se famílias no Brasil são mais próximas.
+            </p>
+            <p style="margin:0;">
+              Fechamos com o tema <strong>American Dream</strong>: o que significa para diferentes pessoas, e o termo <strong>steady income</strong> (renda estável).
+              Usamos um trecho extra sobre ganhar em dólar no Brasil, fazendo contas e avaliando a ideia de estar <em>well off</em> (viver bem financeiramente).
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Key Vocabulary</h2>
+          <div class="vocab-grid">
+            <div class="vocab">
+              <h3>Hang out</h3>
+              <p style="margin-top:8px;font-size:0.92rem;color:var(--muted);">
+                <em>(pt) sair / passar tempo junto (de forma casual)</em><br>
+                <small>We like to hang out on weekends.</small>
+              </p>
+            </div>
+            <div class="vocab green">
+              <h3>Steady income</h3>
+              <p style="margin-top:8px;font-size:0.92rem;color:var(--muted);">
+                <em>(pt) renda estável (todo mês, com regularidade)</em><br>
+                <small>My goal is to have a steady income.</small>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- NOVOS TÓPICOS: VOCABULÁRIO DA AULA, FRASES MODELO, CORREÇÕES -->
+        <section>
+          <h2 style="margin-bottom:8px;">Vocabulário da aula</h2>
+          <div class="outline-card">
+            <h3 style="margin-top:0;">Tema: rotina, imprevistos e conversa</h3>
+            <ul>
+              <li><strong>report(s)</strong> – relatório(s)</li>
+              <li><strong>pick someone up</strong> – buscar alguém (de carro)</li>
+              <li><strong>overheat / overheated</strong> – superaquecer / superaqueceu</li>
+              <li><strong>front of the car</strong> – parte da frente do carro</li>
+              <li><strong>weekend</strong> – fim de semana</li>
+              <li><strong>catch fish</strong> – pegar peixe</li>
+              <li><strong>nothing at all</strong> – nada mesmo / absolutamente nada</li>
+              <li><strong>portion(s)</strong> – porções</li>
+              <li><strong>hungry</strong> – com fome</li>
+            </ul>
+
+            <h3>Viver no exterior e culture shock</h3>
+            <ul>
+              <li><strong>live abroad</strong> – morar fora</li>
+              <li><strong>culture shock</strong> – choque cultural</li>
+              <li><strong>meal times</strong> – horários das refeições</li>
+              <li><strong>daily habits</strong> – hábitos do dia a dia</li>
+              <li><strong>appointment(s)</strong> – compromisso(s) / horário marcado</li>
+              <li><strong>physical contact</strong> – contato físico</li>
+              <li><strong>opportunity(ies)</strong> – oportunidade(s)</li>
+              <li><strong>violence</strong> – violência</li>
+            </ul>
+
+            <h3>Brasil x EUA (vídeo) + discussão</h3>
+            <ul>
+              <li><strong>freedom to walk around</strong> – liberdade para andar pela cidade</li>
+              <li><strong>safe / safety</strong> – seguro(a) / segurança</li>
+              <li><strong>neighborhood</strong> – bairro</li>
+              <li><strong>robbery</strong> – assalto / roubo</li>
+              <li><strong>friendlier</strong> – mais amigável</li>
+              <li><strong>willing (to)</strong> – disposto(a) (a) / com disposição (para)</li>
+              <li><strong>get to know</strong> – conhecer melhor / se aproximar</li>
+              <li><strong>hang out</strong> – sair / passar tempo junto</li>
+              <li><strong>party / parties</strong> – festa(s)</li>
+              <li><strong>families are closer</strong> – famílias são mais próximas</li>
+              <li><strong>American Dream</strong> – “Sonho Americano”</li>
+              <li><strong>steady income</strong> – renda estável</li>
+              <li><strong>well off</strong> – financeiramente bem / vivendo bem</li>
+              <li><strong>remote job</strong> – trabalho remoto</li>
+              <li><strong>invest (money)</strong> – investir (dinheiro)</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Frases modelo da aula</h2>
+          <div class="outline-card">
+            <ul>
+              <li>What did you do today?</li>
+              <li>I worked and did some reports.</li>
+              <li>I went to pick up my girlfriend at her job.</li>
+              <li>The front of the car overheated.</li>
+              <li>Did you catch any fish? — Nothing at all.</li>
+              <li>Are you a physical contact person?</li>
+              <li>Do you think it’s cultural or personal? — I think both.</li>
+              <li>Brazilians are friendlier and more willing to talk.</li>
+              <li>They like to hang out, have dinners, and go to parties together.</li>
+              <li>My goal is to have a steady income.</li>
+              <li>If I was making $5,000 a month in Brazil, I would be very well off.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ✅ NOVA SEÇÃO FIXA: CORREÇÕES IMPORTANTES -->
+        <section>
+          <h2 style="margin-bottom:8px;">Correções importantes</h2>
+          <div class="outline-card">
+            <ul>
+              <li><strong>Different from (e não “different to”)</strong><br>
+                ❌ <em>It’s different to Brazil.</em><br>
+                ✅ <em>It’s different from Brazil.</em>
+              </li>
+              <li><strong>“Hang out” (ideia e uso)</strong><br>
+                ✅ <em>We hang out with friends.</em> = sair/passar tempo junto (casual, sem formalidade).<br>
+                (Evitar traduzir literalmente como “pendurar para fora”.)
+              </li>
+              <li><strong>“Willing” = “disposto / com disposição”</strong><br>
+                ✅ <em>People are willing to talk.</em> = as pessoas têm disposição para conversar.
+              </li>
+              <li><strong>Uso natural de “pick up”</strong><br>
+                ✅ <em>I went to pick up my girlfriend.</em> = fui buscar minha namorada (geralmente de carro).
+              </li>
+              <li><strong>Detalhe de condicional (forma mais “padrão”)</strong><br>
+                Forma comum (aceita): ✅ <em>If I was making…</em><br>
+                Forma mais formal/padrão: ✅ <em>If I were making…</em>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <!-- ✅ FIM DA NOVA SEÇÃO -->
+
+        <section>
+          <h2 style="margin-bottom:8px;">Transcrição &amp; Gravação</h2>
+          <div class="media-row">
+            <!-- Transcrição sem link (apenas botão) -->
+            <a class="media-btn" href="#" role="button">📄 Acessar transcrição</a>
+
+            <!-- Vídeo da aula com o link que você mandou -->
+            <a
+              class="media-btn"
+              href="https://youtu.be/fKVmbvaj9iw"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="button"
+              style="background:linear-gradient(180deg,#1f6fd1,#2f86e6);color:#fff;border:none;min-width:260px;"
+            >
+              🎥 Assistir gravação (acesso privado)
+            </a>
+          </div>
+        </section>
+
+        <!-- ===== TABELA DE DISTRIBUIÇÃO DE FALA ===== -->
+        <section class="speaking" aria-label="Distribuição de fala">
+          <h2>Tempo de Fala (Talk Time)</h2>
+          <table class="talk-table">
+            <thead>
+              <tr>
+                <th>Quem falou</th>
+                <th>Porcentagem</th>
+                <th>Duração aproximada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-teacher">
+                <td><span class="talk-label">César (Professor)</span></td>
+                <td><span class="talk-percent">65%</span></td>
+                <td class="talk-time">~32 minutos</td>
+              </tr>
+              <tr class="row-student">
+                <td><span class="talk-label">Gabriel</span></td>
+                <td><span class="talk-percent">35%</span></td>
+                <td class="talk-time">~18 minutos</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <!-- ===== FIM TABELA ===== -->
+
+        <section>
+          <h2 style="margin-bottom:8px;">Homework</h2>
+          <div class="homework">
+            <p style="margin:0 0 8px 0;">
+              📌 <strong>Lição de casa (como combinado em aula):</strong>
+            </p>
+            <ul style="margin:0 0 6px 18px;padding:0;font-size:0.94rem;color:var(--muted);">
+              <li>Ler este pós-aula <strong>2 a 3 vezes por semana</strong>.</li>
+              <li>Reler o <strong>Resumo da Aula</strong> <strong>2 a 3 vezes por semana</strong>.</li>
+              <li>Reler a parte de <strong>Key Vocabulary</strong> <strong>2 a 3 vezes por semana</strong>.</li>
+              <li>Reler o <strong>Vocabulário da aula</strong> <strong>2 a 3 vezes por semana</strong>.</li>
+            </ul>
+            <p style="margin:6px 0 0 0;">
+              <!-- Botão de tarefa de casa com link do Babadum -->
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn secondary"
+                style="padding:8px 12px;border-radius:8px;font-weight:700;"
+              >
+                📘 Abrir pós-aula
+              </a>
+            </p>
+          </div>
+
+          <div style="margin-top:14px;">
+            <a class="btn" href="https://wa.me" style="background:#25D366;border-radius:10px;box-shadow:none;">
+              💬 Falar comigo no WhatsApp
+            </a>
+          </div>
+        </section>
+
+      </main>
+
+      <footer>
+        <p style="margin:18px 0 0 0;color:var(--muted);font-size:0.9rem;">
+          © 2026 CZK English • Este conteúdo é exclusivo para fins educacionais. • Suporte: czkenglish@gmail.com
+        </p>
+      </footer>
+    </article>
+  </div>
+</body>
+</html>
